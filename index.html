@@ -28,6 +28,11 @@
       <button class="mode-btn"        id="modePvAI" onclick="setMode('ai')">
         🤖 Player vs AI
       </button>
+      <select id="difficulty">
+   <option value="easy">Easy</option>
+   <option value="medium">Medium</option>
+   <option value="hard" selected>Hard</option>
+</select>
     </div>
 
     <!-- ── SCOREBOARD ── -->
@@ -53,14 +58,50 @@
         </div>
       </div>
     </div>
+    <!-- ── GAME STATS ── -->
+<div class="stats-panel">
+
+  <div class="stat-box">
+    <span id="gamesPlayed">0</span>
+    <p>Games</p>
+  </div>
+
+  <div class="stat-box">
+    <span id="xWins">0</span>
+    <p>X Wins</p>
+  </div>
+
+  <div class="stat-box">
+    <span id="oWins">0</span>
+    <p>O Wins</p>
+  </div>
+
+  <div class="stat-box">
+    <span id="drawCount">0</span>
+    <p>Draws</p>
+  </div>
+
+</div>
+   
 
     <!-- ── STATUS BAR ── -->
-    <div class="status-bar">
-      <div class="turn-indicator">
-        <span class="turn-mark" id="turnMark">X</span>
-        <span class="turn-text" id="turnText">'s Turn</span>
-      </div>
-    </div>
+    <!-- ── TURN CARD ── -->
+<div class="turn-card">
+
+  <div class="turn-player x-active" id="turnX">
+    X
+  </div>
+
+  <div class="turn-center">
+    <span class="turn-label">CURRENT TURN</span>
+    <span class="turn-name" id="turnText">Player X</span>
+  </div>
+
+  <div class="turn-player" id="turnO">
+    O
+  </div>
+
+</div>
 
     <!-- ── BOARD ── -->
     <div class="board" id="board">
@@ -104,9 +145,64 @@
       <button class="btn btn-ghost" onclick="newGame()">↺ New Game</button>
       <button class="btn btn-ghost" onclick="fullReset()">✕ Reset Scores</button>
     </div>
+<div class="bottom-section">
 
-  </main>
+    <!-- Card 1 -->
+    <div class="panel-card">
+        <h3>🎮 Game Features</h3>
 
+        <div class="feature-tags">
+            <span class="tag">👥 PvP Mode</span>
+            <span class="tag">🤖 AI Opponent</span>
+            <span class="tag">🎯 Easy Mode</span>
+            <span class="tag">🔥 Hard Mode</span>
+            <span class="tag">🏆 Live Scoreboard</span>
+            <span class="tag">✨ Win Detection</span>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="panel-card">
+        <h3>🎲 Tic-Tac-Toe Game</h3>
+
+        <p class="project-desc">
+            Challenge your friends or test your skills against the AI.
+            Get three symbols in a row horizontally, vertically,
+            or diagonally to win the game.
+        </p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="panel-card">
+        <h3>🚀 Project Highlights</h3>
+
+        <div class="feature-tags">
+            <span class="tag">⚡ Fast Gameplay</span>
+            <span class="tag">🧠 Smart AI</span>
+            <span class="tag">📱 Responsive UI</span>
+            <span class="tag">🎨 Modern Design</span>
+        </div>
+
+        <p class="project-desc">
+            Developed using HTML, CSS and JavaScript as part of
+            Prodigy Infotech Internship Task-03.
+        </p>
+    </div>
+
+</div>
+
+  <div class="footer-section">
+    <p>
+      Developed by
+      <strong>Sandeep Kumar Bhardwaj</strong>
+    </p>
+
+    <p>
+      Prodigy Infotech Internship — Task 03
+    </p>
+  </div>
+
+</footer>
   <script src="script.js"></script>
 </body>
 </html>

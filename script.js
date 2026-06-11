@@ -24,6 +24,7 @@ const WIN_LINES = {
   '048': { x1:.5, y1:.5, x2:2.5, y2:2.5 },
   '246': { x1:2.5, y1:.5, x2:.5,  y2:2.5 },
 };
+let difficulty = 'hard';
 
 /* ── State ── */
 let board      = Array(9).fill(null);
@@ -49,6 +50,16 @@ const winLineSvg    = document.getElementById('winLineSvg');
 const winLineEl     = document.getElementById('winLine');
 const scoreX        = document.getElementById('scoreX');
 const scoreO        = document.getElementById('scoreO');
+const difficultySelect = document.getElementById('difficulty');
+difficultySelect.addEventListener('change', () => {
+  difficulty = difficultySelect.value;
+});
+const gamesPlayed = document.getElementById('gamesPlayed');
+const xWins = document.getElementById('xWins');
+const oWins = document.getElementById('oWins');
+const drawCount = document.getElementById('drawCount');
+
+
 
 /* ── Mode ── */
 function setMode(m) {
@@ -75,6 +86,8 @@ function handleClick(idx) {
     boardEl.classList.add('ai-thinking');
     setTimeout(aiMove, 450);
   }
+  const difficulty =
+document.getElementById('difficulty').value;
 }
 
 function placeMove(idx, player) {
@@ -90,10 +103,37 @@ function switchTurn() {
 }
 
 function updateTurnUI() {
-  turnMark.textContent = current;
-  turnMark.className   = 'turn-mark ' + current.toLowerCase();
-  scoreX.classList.toggle('active-turn', current === 'X');
-  scoreO.classList.toggle('active-turn', current === 'O');
+
+  const turnX = document.getElementById('turnX');
+  const turnO = document.getElementById('turnO');
+
+  if(current === 'X'){
+
+    turnX.classList.add('x-active');
+    turnO.classList.remove('o-active');
+
+    turnText.textContent = 'Player X';
+
+  }else{
+
+    turnO.classList.add('o-active');
+    turnX.classList.remove('x-active');
+
+    turnText.textContent =
+      mode === 'ai'
+      ? 'AI Bot'
+      : 'Player O';
+  }
+
+  scoreX.classList.toggle(
+    'active-turn',
+    current === 'X'
+  );
+
+  scoreO.classList.toggle(
+    'active-turn',
+    current === 'O'
+  );
 }
 
 /* ── Result check ── */
@@ -156,19 +196,71 @@ function showResult(emoji, title, sub) {
 }
 
 function updateScores() {
-  numX.textContent     = scores.X;
-  numO.textContent     = scores.O;
+
+  numX.textContent = scores.X;
+  numO.textContent = scores.O;
   numDraws.textContent = scores.draws;
+
+  xWins.textContent = scores.X;
+  oWins.textContent = scores.O;
+  drawCount.textContent = scores.draws;
+
+  gamesPlayed.textContent =
+    scores.X + scores.O + scores.draws;
 }
 
 /* ── AI (Minimax) ── */
 function aiMove() {
+
   boardEl.classList.remove('ai-thinking');
-  const best = minimax(board, 'O', 0);
-  placeMove(best.index, 'O');
+
+  if(difficulty === 'easy'){
+
+      const empty =
+      board
+      .map((v,i)=>v?null:i)
+      .filter(v=>v!==null);
+
+      const move =
+      empty[Math.floor(Math.random()*empty.length)];
+
+      placeMove(move,'O');
+  }
+
+  else if(difficulty === 'medium'){
+
+      if(Math.random() < 0.5){
+
+          const empty =
+          board
+          .map((v,i)=>v?null:i)
+          .filter(v=>v!==null);
+
+          const move =
+          empty[Math.floor(Math.random()*empty.length)];
+
+          placeMove(move,'O');
+
+      }else{
+
+          const best = minimax(board,'O',0);
+          placeMove(best.index,'O');
+      }
+  }
+
+  else{
+
+      const best = minimax(board,'O',0);
+      placeMove(best.index,'O');
+  }
 
   const result = checkResult();
-  if (result) { endGame(result); return; }
+
+  if(result){
+      endGame(result);
+      return;
+  }
+
   switchTurn();
 }
 
@@ -231,5 +323,4 @@ document.addEventListener('keydown', e => {
   if (e.code === 'Escape') resultOverlay.classList.remove('show');
 });
 
-/* ── Init ── */
-updateTurnUI();
+
