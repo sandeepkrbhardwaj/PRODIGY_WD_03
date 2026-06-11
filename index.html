@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task-03 | Tic-Tac-Toe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <div class="bg-glow g1"></div>
+  <div class="bg-glow g2"></div>
+
+  <header class="header">
+    <div class="badge">PRODIGY INFOTECH — TASK 03</div>
+    <h1 class="page-title">Tic-Tac-Toe</h1>
+  </header>
+
+  <main class="main">
+
+    <!-- ── MODE SELECTOR ── -->
+    <div class="mode-selector" id="modeSelector">
+      <button class="mode-btn active" id="modePvP"  onclick="setMode('pvp')">
+        👥 Player vs Player
+      </button>
+      <button class="mode-btn"        id="modePvAI" onclick="setMode('ai')">
+        🤖 Player vs AI
+      </button>
+    </div>
+
+    <!-- ── SCOREBOARD ── -->
+    <div class="scoreboard">
+      <div class="score-card" id="scoreX">
+        <div class="score-mark x">X</div>
+        <div class="score-info">
+          <span class="score-name" id="nameX">Player X</span>
+          <span class="score-num"  id="numX">0</span>
+        </div>
+      </div>
+
+      <div class="score-divider">
+        <span class="score-draws" id="numDraws">0</span>
+        <span class="score-draws-label">Draws</span>
+      </div>
+
+      <div class="score-card" id="scoreO">
+        <div class="score-mark o">O</div>
+        <div class="score-info">
+          <span class="score-name" id="nameO">Player O</span>
+          <span class="score-num"  id="numO">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STATUS BAR ── -->
+    <div class="status-bar">
+      <div class="turn-indicator">
+        <span class="turn-mark" id="turnMark">X</span>
+        <span class="turn-text" id="turnText">'s Turn</span>
+      </div>
+    </div>
+
+    <!-- ── BOARD ── -->
+    <div class="board" id="board">
+      <div class="cell" data-idx="0" onclick="handleClick(0)"></div>
+      <div class="cell" data-idx="1" onclick="handleClick(1)"></div>
+      <div class="cell" data-idx="2" onclick="handleClick(2)"></div>
+      <div class="cell" data-idx="3" onclick="handleClick(3)"></div>
+      <div class="cell" data-idx="4" onclick="handleClick(4)"></div>
+      <div class="cell" data-idx="5" onclick="handleClick(5)"></div>
+      <div class="cell" data-idx="6" onclick="handleClick(6)"></div>
+      <div class="cell" data-idx="7" onclick="handleClick(7)"></div>
+      <div class="cell" data-idx="8" onclick="handleClick(8)"></div>
+      <!-- Win line overlay -->
+      <svg class="win-line-svg" id="winLineSvg" viewBox="0 0 3 3" style="display:none">
+        <line id="winLine" x1="0" y1="0" x2="0" y2="0"
+              stroke="url(#wlGrad)" stroke-width="0.18" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="wlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#6c63ff"/>
+            <stop offset="100%" stop-color="#00f5d4"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- ── RESULT OVERLAY ── -->
+    <div class="result-overlay" id="resultOverlay">
+      <div class="result-card">
+        <div class="result-emoji" id="resultEmoji">🎉</div>
+        <h2 class="result-title" id="resultTitle">Player X Wins!</h2>
+        <p  class="result-sub"   id="resultSub">Congratulations!</p>
+        <div class="result-actions">
+          <button class="btn btn-primary" onclick="newGame()">Play Again</button>
+          <button class="btn btn-ghost"   onclick="fullReset()">New Match</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ACTIONS ── -->
+    <div class="actions">
+      <button class="btn btn-ghost" onclick="newGame()">↺ New Game</button>
+      <button class="btn btn-ghost" onclick="fullReset()">✕ Reset Scores</button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
